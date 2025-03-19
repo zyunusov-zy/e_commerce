@@ -51,6 +51,16 @@ RATING = (
     (5, '⭐️⭐️⭐️⭐️⭐️'),
 )
 
+def generate_sku():
+    su = shortuuid.ShortUUID()
+    su.set_alphabet('1234567890') 
+    return f"SKU{su.random(length=5)}"
+
+def generate_id():
+    su = shortuuid.ShortUUID()
+    su.set_alphabet('1234567890') 
+    return f"{su.random(length=5)}"
+
 class Category(models.Model):
     title = models.CharField(max_length=255)
     image = models.FileField(upload_to="category/", null=True, blank=True)
@@ -86,11 +96,7 @@ class Product(models.Model):
     
     vendor = models.ForeignKey(user_models.User, on_delete=models.SET_NULL, null=True, blank=True)
     
-    sku = models.CharField(
-        max_length=50,
-        unique=True,
-        default=lambda: f"SKU{''.join(shortuuid.ShortUUID().random(length=5, alphabet='1234567890'))}"
-    )
+    sku = models.CharField(max_length=50, unique=True, default=generate_sku)
     slug = models.SlugField(null=True, blank=True)
     
     date = models.DateTimeField(default=timezone.now)
@@ -131,8 +137,11 @@ class Gallery(models.Model):
     gallery_id = models.CharField(
         max_length=50,
         unique=True,
-        default=lambda: f"{''.join(shortuuid.ShortUUID().random(length=5, alphabet='1234567890'))}"
+        default=generate_id
     )
+    
+    class Meta:
+        verbose_name_plural = "Gallery"
     
     def __str__(self):
         return f"{self.product.title} - image"
@@ -183,7 +192,7 @@ class Order(models.Model):
     order_id =  models.CharField(
         max_length=25,
         unique=True,
-        default=lambda: f"{''.join(shortuuid.ShortUUID().random(length=5, alphabet='1234567890'))}"
+        default=generate_id
     )
     
     payment_id = models.CharField(max_length=1000, null=True, blank=True)
@@ -222,7 +231,7 @@ class OrderItem(models.Model):
     item_id = models.CharField(
         max_length=25,
         unique=True,
-        default=lambda: f"{''.join(shortuuid.ShortUUID().random(length=5, alphabet='1234567890'))}"
+        default=generate_id
     )
     vendor = models.ForeignKey(user_models.User, on_delete=models.SET_NULL, null=True, related_name="vendor_order_items")
     date = models.DateTimeField(default=timezone.now)
