@@ -256,5 +256,4 @@ class Review(models.Model):
     
     def __str__(self):
         return f"{self.user.username} review on  {self.product.title}"
-
-        
+    

@@ -5,17 +5,18 @@ import { ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react"
 import "./scrollbar-hide.css"
 
 const categories = [
-  { id: "electronics", name: "Electronics", image: "/placeholder.svg?height=150&width=150", href: "/category/electronics" },
-  { id: "gadgets", name: "Gadgets", image: "/placeholder.svg?height=150&width=150", href: "/category/gadgets" },
-  { id: "mobile", name: "Mobile", image: "/placeholder.svg?height=150&width=150", href: "/category/mobile" },
-  { id: "computers", name: "Computers", image: "/placeholder.svg?height=150&width=150", href: "/category/computers" },
-  { id: "camera", name: "Camera", image: "/placeholder.svg?height=150&width=150", href: "/category/camera" },
-  { id: "tablets", name: "Tablets", image: "/placeholder.svg?height=150&width=150", href: "/category/tablets" },
-  { id: "audio", name: "Audio", image: "/placeholder.svg?height=150&width=150", href: "/category/audio" },
-  { id: "gaming", name: "Gaming", image: "/placeholder.svg?height=150&width=150", href: "/category/gaming" },
-  { id: "wearables", name: "Wearables", image: "/placeholder.svg?height=150&width=150", href: "/category/wearables" },
-  { id: "accessories", name: "Accessories", image: "/placeholder.svg?height=150&width=150", href: "/category/accessories" },
-]
+  { id: "sofas", name: "Sofas", slug: "sofas", image: "/placeholder.svg?height=150&width=150", href: "/category/sofas" },
+  { id: "beds", name: "Beds", slug: "beds", image: "/placeholder.svg?height=150&width=150", href: "/category/beds" },
+  { id: "chairs", name: "Chairs", slug: "chairs", image: "/placeholder.svg?height=150&width=150", href: "/category/chairs" },
+  { id: "tables", name: "Tables", slug: "tables", image: "/placeholder.svg?height=150&width=150", href: "/category/tables" },
+  { id: "cabinets", name: "Cabinets", slug: "cabinets", image: "/placeholder.svg?height=150&width=150", href: "/category/cabinets" },
+  { id: "wardrobes", name: "Wardrobes", slug: "wardrobes", image: "/placeholder.svg?height=150&width=150", href: "/category/wardrobes" },
+  { id: "tv-stands", name: "TV Stands", slug: "tv-stands", image: "/placeholder.svg?height=150&width=150", href: "/category/tv-stands" },
+  { id: "office-furniture", name: "Office Furniture", slug: "office-furniture", image: "/placeholder.svg?height=150&width=150", href: "/category/office-furniture" },
+  { id: "outdoor-furniture", name: "Outdoor Furniture", slug: "outdoor-furniture", image: "/placeholder.svg?height=150&width=150", href: "/category/outdoor-furniture" },
+  { id: "kids-furniture", name: "Kids' Furniture", slug: "kids-furniture", image: "/placeholder.svg?height=150&width=150", href: "/category/kids-furniture" },
+];
+
 
 export default function CategorySlider() {
   const sliderRef = useRef(null)
@@ -141,7 +142,7 @@ export default function CategorySlider() {
             {fullList.map((category, index) => (
               <a
                 key={`${category.id}-${index}`}
-                href={category.href}
+                href={`/category/${category.slug}`}
                 className="flex flex-col items-center flex-shrink-0"
                 style={{
                   width: "calc(20% - 20px)",
