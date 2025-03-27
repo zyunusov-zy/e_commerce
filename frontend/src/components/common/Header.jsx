@@ -184,13 +184,13 @@ export default function ECommerceHeader() {
             {/* Auth Buttons - Desktop */}
             <div className="hidden sm:flex items-center space-x-2">
               <Button variant="outline" size="sm" asChild className="dark:border-gray-700 dark:text-white text-xs sm:text-sm">
-                <a href="/login" className="flex items-center">
+                <a href="/auth/sing-in" className="flex items-center">
                   <User className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
                   Login
                 </a>
               </Button>
               <Button size="sm" asChild className="text-xs sm:text-sm">
-                <a href="/signup" className="flex items-center">
+                <a href="/auth/sing-up" className="flex items-center">
                   <UserPlus className="mr-1 h-3 w-3 sm:h-4 sm:w-4" />
                   Sign Up
                 </a>
