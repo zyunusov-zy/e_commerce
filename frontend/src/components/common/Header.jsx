@@ -72,7 +72,7 @@ export default function ECommerceHeader() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Shop", href: "/shop" },
+    { name: "Shop", href: "/shop/" },
     { name: "Category", href: "/category" },
     { name: "Vendor", href: "/vendor" },
     { name: "Customer", href: "/customer" },

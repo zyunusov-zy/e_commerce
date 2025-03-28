@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import Login from "./pages/auth/Login";
 import SingUp from "./pages/auth/SingUp";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import ShopPage from "./pages/shop/ShopPage";
+
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -28,6 +30,7 @@ function App() {
           <Route path="/auth/sing-in" element={<Login />} />
           <Route path="/auth/sing-up" element={<SingUp />} />
           <Route path="/auth/forgot-password" element={<ForgotPassword />} />
+          <Route path="/shop" element={<ShopPage />} />
         </Routes>
       </ThemeProvider>
     </Router>
