@@ -1,0 +1,14 @@
+{
+    "logo": "Mebel House",
+    "header": {
+      "account": "Account",
+      "wishlist": "Wishlist",
+      "cart": "Cart",
+      "items": "items"
+    },
+    "language": {
+      "en": "English",
+      "ru": "Russian",
+      "uz": "Uzbek"
+    }
+  }
