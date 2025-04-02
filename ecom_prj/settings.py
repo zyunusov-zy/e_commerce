@@ -48,10 +48,8 @@ INSTALLED_APPS = [
     
     'userauths',
     'store',
-    'vendor',
     'customer',
-    'blog',
-    
+
     
     'anymail',
     # 'captcha',
