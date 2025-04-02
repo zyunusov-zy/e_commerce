@@ -194,6 +194,30 @@ export default function Header() {
     { name: "About Us", submenu: [] },
   ];
 
+  // Search categories structure (similar to navCategories)
+  const searchCategories = {
+    name: "Search",
+    submenu: [
+      {
+        title: "RECENT SEARCHES",
+        links: recentSearches,
+        isRecent: true,
+      },
+      {
+        title: "POPULAR SEARCHES",
+        links: ["Modern furniture", "Bedroom sets", "Dining tables", "Office desks", "Lighting"],
+      },
+      {
+        title: "CATEGORIES",
+        links: ["Living Room", "Bedroom", "Dining Room", "Office", "Outdoor", "Decor", "Lighting"],
+      },
+    ],
+    featured: {
+      image: "/api/placeholder/600/400",
+      alt: "Search featured image",
+    },
+  };
+
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
   };
@@ -239,7 +263,7 @@ export default function Header() {
       if (!event.target.closest(".nav-item") && !event.target.closest(".dropdown-menu")) {
         setActiveDropdown(null);
       }
-      if (searchRef.current && !searchRef.current.contains(event.target)) {
+      if (searchRef.current && !searchRef.current.contains(event.target) && !event.target.closest(".search-dropdown")) {
         setIsSearchFocused(false);
       }
     };
@@ -366,101 +390,28 @@ export default function Header() {
           </ul>
           
           {/* Search with dropdown */}
-          <div className="relative w-64" ref={searchRef}>
+          <div className="relative" ref={searchRef}>
             <form onSubmit={handleSearchSubmit}>
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchValue}
-                onChange={handleSearch}
-                onFocus={() => {
-                  setIsSearchFocused(true);
-                  setActiveDropdown(null);
-                }}
-                className="w-full border dark:border-zinc-700 border-gray-300 rounded-full px-4 py-2 text-sm bg-white dark:bg-zinc-800 dark:text-amber-100 text-zinc-800"
-              />
-              <button 
-                type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2"
-              >
-                <Search className="w-4 h-4 text-zinc-800 dark:text-amber-100" />
-              </button>
-            </form>
-            
-            {/* Search dropdown */}
-            {isSearchFocused && (
-              <div className="dropdown-menu absolute right-0 mt-2 w-96 bg-white dark:bg-zinc-900 border dark:border-zinc-700 border-amber-100 shadow-lg rounded-lg z-50">
-                <div className="p-4">
-                  <div className="flex">
-                    {/* Recent searches column */}
-                    <div className="w-1/2 pr-4 border-r dark:border-zinc-700 border-amber-100">
-                      <h3 className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-3">
-                        RECENT SEARCHES
-                      </h3>
-                      {recentSearches.length > 0 ? (
-                        <ul>
-                          {recentSearches.map((search, index) => (
-                            <li key={index} className="flex items-center justify-between mb-2">
-                              <div className="flex items-center">
-                                <Clock className="h-3 w-3 text-zinc-500 dark:text-zinc-400 mr-2" />
-                                <span className="text-sm text-zinc-800 dark:text-amber-100">
-                                  {search}
-                                </span>
-                              </div>
-                              <button 
-                                onClick={() => removeRecentSearch(search)}
-                                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-amber-300"
-                              >
-                                <X className="h-3 w-3" />
-                              </button>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                          No recent searches
-                        </p>
-                      )}
-                    </div>
-                    
-                    {/* Results preview column */}
-                    <div className="w-1/2 pl-4">
-                      <h3 className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-3">
-                        POPULAR PRODUCTS
-                      </h3>
-                      <ul>
-                        {searchResults.map((result, index) => (
-                          <li key={index} className="flex items-start mb-3">
-                            <img 
-                              src={result.image} 
-                              alt={result.title} 
-                              className="w-12 h-12 object-cover mr-3"
-                            />
-                            <div>
-                              <p className="text-sm font-medium text-zinc-800 dark:text-amber-100">
-                                {result.title}
-                              </p>
-                              <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                                {result.category}
-                              </p>
-                              <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
-                                {result.price}
-                              </p>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="mt-2 text-right">
-                        <button className="text-xs flex items-center justify-end text-amber-700 dark:text-amber-300 font-medium">
-                          View all results
-                          <ArrowRight className="ml-1 h-3 w-3" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  value={searchValue}
+                  onChange={handleSearch}
+                  onFocus={() => {
+                    setIsSearchFocused(true);
+                    setActiveDropdown(null);
+                  }}
+                  className="w-64 border dark:border-zinc-700 border-gray-300 rounded-full px-4 py-2 text-sm bg-white dark:bg-zinc-800 dark:text-amber-100 text-zinc-800"
+                />
+                <button 
+                  type="submit"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2"
+                >
+                  <Search className="w-4 h-4 text-zinc-800 dark:text-amber-100" />
+                </button>
               </div>
-            )}
+            </form>
           </div>
         </div>
 
@@ -500,6 +451,98 @@ export default function Header() {
                     />
                   </div>
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Search Dropdown - Now styled like the main navigation dropdowns */}
+        {isSearchFocused && (
+          <div 
+            className="search-dropdown absolute left-0 right-0 bg-white dark:bg-zinc-900 border-t dark:border-zinc-800 border-amber-100 z-40"
+          >
+            <div className="container mx-auto py-8 px-6">
+              <div className="flex">
+                {searchCategories.submenu.map((section, index) => (
+                  <div key={index} className="pr-12 last:pr-0">
+                    <h3 className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-4">
+                      {section.title}
+                    </h3>
+                    <ul className="space-y-2">
+                      {section.links.map((link, linkIndex) => (
+                        <li key={linkIndex} className="flex items-center justify-between">
+                          {section.isRecent ? (
+                            <>
+                              <div className="flex items-center">
+                                <Clock className="h-3 w-3 text-zinc-500 dark:text-zinc-400 mr-2" />
+                                <span className="text-sm text-zinc-800 dark:text-amber-100">
+                                  {link}
+                                </span>
+                              </div>
+                              <button 
+                                onClick={() => removeRecentSearch(link)}
+                                className="text-zinc-400 hover:text-zinc-600 dark:hover:text-amber-300"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </>
+                          ) : (
+                            <a 
+                              href="#" 
+                              className="text-sm text-zinc-800 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300"
+                            >
+                              {link}
+                            </a>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
+                {/* Popular Products Section */}
+                <div className="pr-12">
+                  <h3 className="text-xs font-medium text-zinc-500 dark:text-zinc-400 mb-4">
+                    POPULAR PRODUCTS
+                  </h3>
+                  <ul className="space-y-4">
+                    {searchResults.map((result, index) => (
+                      <li key={index} className="flex items-start">
+                        <img 
+                          src={result.image} 
+                          alt={result.title} 
+                          className="w-12 h-12 object-cover mr-3"
+                        />
+                        <div>
+                          <p className="text-sm font-medium text-zinc-800 dark:text-amber-100">
+                            {result.title}
+                          </p>
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                            {result.category}
+                          </p>
+                          <p className="text-xs font-medium text-amber-700 dark:text-amber-300">
+                            {result.price}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Featured Image */}
+                <div className="ml-auto">
+                  <img 
+                    src={searchCategories.featured.image} 
+                    alt={searchCategories.featured.alt}
+                    className="w-64 h-48 object-cover"
+                  />
+                  <div className="mt-2 text-right">
+                    <button className="text-xs flex items-center justify-end text-amber-700 dark:text-amber-300 font-medium">
+                      View all results
+                      <ArrowRight className="ml-1 h-3 w-3" />
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
