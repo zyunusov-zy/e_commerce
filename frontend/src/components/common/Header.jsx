@@ -432,7 +432,7 @@ export default function Header() {
                       {section.links.map((link, linkIndex) => (
                         <li key={linkIndex}>
                           <a 
-                            href="#" 
+                            href={`/category/${link.toLowerCase()}`}
                             className="text-sm text-zinc-800 dark:text-amber-100 hover:text-amber-700 dark:hover:text-amber-300"
                           >
                             {link}
